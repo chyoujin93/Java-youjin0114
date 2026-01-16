@@ -1,4 +1,4 @@
-package ex_;
+package _4_Test_260116.ex_youjin;
 import java.util.Scanner;
 public class test1_3 {
     public static void main(String[] args) {

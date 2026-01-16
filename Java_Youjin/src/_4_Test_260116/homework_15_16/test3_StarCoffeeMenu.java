@@ -1,4 +1,4 @@
-package _3_test_260115;
+package _4_Test_260116.homework_15_16;
 //메뉴 개발하는 클래스 (설계)
 public class test3_StarCoffeeMenu {
 
@@ -29,7 +29,8 @@ public class test3_StarCoffeeMenu {
         System.out.println("메뉴: " + this.menuName);
         System.out.println("사이즈: " + this.size );
         System.out.println("Hot?: " + this.isHot);
-        System.out.println("                         ");
+        System.out.println("주문 내역서 ");
+        System.out.println("==============================");
     }
 }
 

@@ -1,4 +1,4 @@
-package ex_;
+package _4_Test_260116.ex_youjin;
 
 public class test1_2 {
     public static void main(String[] args) {
