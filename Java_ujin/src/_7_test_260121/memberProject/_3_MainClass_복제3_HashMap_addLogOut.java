@@ -47,7 +47,7 @@ public class _3_MainClass_복제3_HashMap_addLogOut {
             System.out.println("메뉴 선택 >>");
 
             // 숫자를 입력 받을 준비 및 처리.
-            int choice; // choice 변수 선언
+            int choice; // choice 변수 선
             try {   // try~catch~continue 구문
                 // 콘솔에 입력된 내용은 모두 타입이 문자열입니다.
                 // 그래서, 입력 받은 문자열을 숫자 형태로 변경해야함. (변환)
