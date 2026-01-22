@@ -41,4 +41,29 @@ public abstract class _3_MemberBase {
     public int getAge() {
         return age;
     }
+
+    // 260122_기능추가_수정_순서1
+    // 외부에서 해당 멤버 변수인, name, email, password, age 접근이 안됨.
+    // 그래서 우리는 외부에서 변경이 가능한 메서드 추가. 이것을 setter라고 부름.
+    // 지금은 수동으로 만들지만 나중에는 라이브러리 사용해서 메모리상에 자동 생성 해줌.
+    // 간단한 어노테이션을 이용해서요 <- 요 기법이 나중에 코드의 길이를 많이 줄여줍니다.
+    // 지금은 배우는 단계라, 스쳐 지나가는 과정으로 생각하기.
+    // 나중에는 더 쉽게 함.
+
+    // 직접 타이핑x, 우클릭->생성->setter 활용하여, 반자동으로 생성함.
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
 }
