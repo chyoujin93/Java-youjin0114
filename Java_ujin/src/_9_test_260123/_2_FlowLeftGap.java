@@ -19,5 +19,6 @@ public class _2_FlowLeftGap {
         frame.setSize(350, 100);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
+
     }
 }

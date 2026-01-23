@@ -27,6 +27,5 @@ public class pr3_GridLayout {
         frame.setSize(200, 150);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
-
     }
 }

@@ -29,6 +29,5 @@ public class Lastclass_single_pr extends JFrame {
         private JTextArea displayArea; // 결과 출력 위한 텍스트 영역
 
 
-
     }
 }

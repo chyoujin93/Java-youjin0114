@@ -33,7 +33,6 @@ public class pr4_NullLayout {
         frame.add(tf2); // 나이입력란
         frame.add(btn); // 확인버튼
 
-
         frame.setSize(220, 100);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);

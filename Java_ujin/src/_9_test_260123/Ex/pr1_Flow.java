@@ -27,7 +27,6 @@ public class pr1_Flow {
             System.out.println("입력된 내용 : " + inputText); // 담아진 변수를 출력한다.
         });
 
-
         // 만든 UI화면에 나타내기.
         frame.add(panel);   // 프레임에 패널을 붙인다.
         // 기본 옵션 (창 크기, 기능 설정)

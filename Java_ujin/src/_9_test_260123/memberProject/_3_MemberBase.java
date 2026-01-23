@@ -66,4 +66,5 @@ public abstract class _3_MemberBase {
     public void setAge(int age) {
         this.age = age;
     }
+
 }

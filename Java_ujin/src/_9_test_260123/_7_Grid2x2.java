@@ -21,5 +21,6 @@ public class _7_Grid2x2 {
         frame.setSize(200, 120);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
+
     }
 }

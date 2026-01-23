@@ -19,5 +19,6 @@ public class _3_FlowWrap {
         frame.setSize(250, 120);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
+
     }
 }

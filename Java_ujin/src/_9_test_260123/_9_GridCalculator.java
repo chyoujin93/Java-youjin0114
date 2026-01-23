@@ -22,5 +22,6 @@ public class _9_GridCalculator {
         frame.setSize(200, 220);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
+
     }
 }

@@ -17,5 +17,6 @@ public class _8_Grid3x1 {
         frame.setSize(250, 120);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
+
     }
 }

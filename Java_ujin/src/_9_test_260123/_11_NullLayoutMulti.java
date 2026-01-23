@@ -22,5 +22,6 @@ public class _11_NullLayoutMulti {
         frame.setSize(300, 120);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
+
     }
 }

@@ -31,5 +31,6 @@ public class pr2_BorderLayout {
         frame.setSize(350, 180);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
+
     }
 }

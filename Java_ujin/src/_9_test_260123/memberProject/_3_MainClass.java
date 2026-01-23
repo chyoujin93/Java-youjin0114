@@ -315,4 +315,5 @@ public class _3_MainClass extends JFrame {
         return loadCount;
     }
 
+
 }// _3_MainClass 닫기

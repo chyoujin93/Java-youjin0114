@@ -17,5 +17,6 @@ public class _5_BorderNorthCenter {
         frame.setSize(300, 180);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
+
     }
 }

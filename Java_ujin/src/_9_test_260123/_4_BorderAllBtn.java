@@ -18,5 +18,6 @@ public class _4_BorderAllBtn {
         frame.setSize(400, 200);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
+
     }
 }

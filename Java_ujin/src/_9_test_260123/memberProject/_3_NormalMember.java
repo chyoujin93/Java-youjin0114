@@ -22,5 +22,6 @@ public class _3_NormalMember extends _3_MemberBase implements _3_Joinable {
         System.out.println("이름 : " +name);
         System.out.println("이메일 : " +email);
         System.out.println("나이 : " +age);
+
     }
 }

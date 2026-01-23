@@ -25,5 +25,6 @@ public class _6_BorderPanelInput {
         frame.setSize(400, 180);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
+
     }
 }

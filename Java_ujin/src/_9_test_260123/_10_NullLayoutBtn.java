@@ -16,5 +16,6 @@ public class _10_NullLayoutBtn {
         frame.setSize(250, 150);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
+
     }
 }
