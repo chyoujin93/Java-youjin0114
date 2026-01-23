@@ -1,4 +1,6 @@
-package _9_test_260123.memberProject;
+package _9_test_260123._9_test_260123._9_test_260123.memberProject;
+
+import _9_test_260123._9_test_260123.memberProject._3_MemberBase;
 
 import javax.swing.*;
 import java.awt.*;
