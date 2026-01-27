@@ -1,4 +1,4 @@
-package _9_test_260123.memberProject;
+package single.memberProject;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,15 +10,15 @@ import java.util.Map;
 
 // 260123_화면_스윙_변경__순서1
 // 해당 클래스가, JFrame 관련 그리기 도구를 사용하기 위해서, 상속.
-public class _3_MainClass2 extends JFrame {
+public class MainClass extends JFrame {
 
     private static final String FILE_NAME = "members.txt";
 
     // 260123_화면_스윙_변경__순서2
     // 전역으로 사용할 멤버들 지정, 변수 지정.
-    private Map<String, _3_MemberBase> members = new HashMap<>();
+    private Map<String, MemberBase> members = new HashMap<>();
     //로그인한 멤버 상태
-    private _3_MemberBase loggedInMember = null;
+    private MemberBase loggedInMember = null;
 
     // 260123_화면_스윙_변경__순서2-2
     // GUI 화면 구성 요소, 전역,
@@ -27,21 +27,21 @@ public class _3_MainClass2 extends JFrame {
     private JLabel statusLabel; // 현재 로그인 상태 표시
 
     // 260123_화면_스윙_변경__순서2-3
-    // 버튼 정의 (7가지)
-    private JButton btnJoin, btnList, btnLoginLogout,
-            btnEdit, btnSearch, btnDelete, btnExit;
+    // 버튼 정의,
+    private JButton btnJoin, btnList, btnLoginLogout, btnEdit, btnSearch, btnExit;
+    //private JButton btnList;
 
     public static void main(String[] args) {
         // 260123_화면_스윙_변경__순서3
         // [GUI 변경] 메인 스레드에서 GUI 실행,
         SwingUtilities.invokeLater(() -> {
-            new _3_MainClass2();
+            new MainClass();
         });
     }
 
     // 260123_화면_스윙_변경__순서4
     // _3_MainClass 생성자 정의.
-    public _3_MainClass2() {
+    public MainClass() {
 
         // 260123_화면_스윙_변경__순서4-2
         // 부모 클래스의 생성자가 호출 후, 자식 클래스의 생성자 호출.
@@ -97,8 +97,7 @@ public class _3_MainClass2 extends JFrame {
         btnLoginLogout = new JButton("3. 로그인"); // 초기값, 로그인하면 로그아웃으로 보일 예정
         btnEdit = new JButton("4. 회원수정");
         btnSearch = new JButton("5. 회원검색");
-        btnDelete = new JButton("6. 회원탈퇴");
-        btnExit = new JButton("7. 종료");
+        btnExit = new JButton("6. 종료");
         // 삭제 기능은 완성 후 실습으로 제시
 //            btnJoin = new JButton("1. 회원가입");
 
@@ -112,8 +111,6 @@ public class _3_MainClass2 extends JFrame {
         btnLoginLogout.addActionListener(new ActionHandler()); // 로그인로그아웃
         btnEdit.addActionListener(new ActionHandler()); // 회원정보수정
         btnSearch.addActionListener(new ActionHandler()); // 회원정보조회
-        btnDelete.addActionListener(new ActionHandler()); // 회원탈퇴(삭제)
-        btnExit.addActionListener(new ActionHandler()); // 종료
 
 
         // 260123_화면_스윙_변경__순서5-7
@@ -123,7 +120,6 @@ public class _3_MainClass2 extends JFrame {
         buttonPanel.add(btnLoginLogout);
         buttonPanel.add(btnEdit);
         buttonPanel.add(btnSearch);
-        buttonPanel.add(btnDelete);
         buttonPanel.add(btnExit);
 
         // 260123_화면_스윙_변경__순서5-8
@@ -162,10 +158,8 @@ public class _3_MainClass2 extends JFrame {
                     handleEdit();
             } else if (source == btnSearch) {
                     handleSearch();
-            } else if (source == btnDelete) {
-                handleDelete();
             } else if (source == btnExit) {
-                System.exit(0);
+//                    handleExit(btnExit);
             }
         } // ActionPerformed 닫기
     } // ActionHandler 닫기
@@ -227,7 +221,7 @@ public class _3_MainClass2 extends JFrame {
             try {
                 int age = Integer.parseInt(ageStr);
                 // 원래 기존 멤버에 객체 등록하면 됨
-                _3_NormalMember newMember = new _3_NormalMember(name, email, pass, age);
+                NormalMember newMember = new NormalMember(name, email, pass, age);
                 // 맵에 새 회원을 담는 과정
                 members.put(email, newMember);
                 // 기존의 파일에 쓰기 기능
@@ -250,7 +244,7 @@ public class _3_MainClass2 extends JFrame {
             printLog("가입된 회원이 없습니다.");
         } else {
             // 기존에 사용하던 Map 순회해서 출력
-            for (_3_MemberBase member : members.values()) {
+            for (MemberBase member : members.values()) {
                 String info = String.format("이름 : %s | 이메일 : %s | 나이 : %d",
                         member.getName(), member.getEmail(), member.getAge());
                 // 문자열 포맷팅
@@ -263,14 +257,18 @@ public class _3_MainClass2 extends JFrame {
     private void handleLoginLogout() {
         System.out.println("hangleLoginLogout 메서드안");
         if (loggedInMember != null) {
+            // 로그인 된 경우, 로그아웃 작업.
             loggedInMember = null;
             printLog(">>>>로그아웃 되었습니다.");
             // 기능은 미구현, 버튼의 라벨을 변경하는 메서드 이용
             updateButtonState();
 
         } else {
+            // 로그인 안 된 경우, 로그인 작업
+            // 로그인 입력창 만들기
             JTextField emailField = new JTextField();
             JPasswordField passField = new JPasswordField();
+
             Object[] message = {
                     "이메일:", emailField,
                     "패스워드:", passField
@@ -278,33 +276,45 @@ public class _3_MainClass2 extends JFrame {
 
             int option = JOptionPane.showConfirmDialog
                     (this, message, "로그인", JOptionPane.OK_CANCEL_OPTION);
+
             if (option == JOptionPane.OK_OPTION) {
+                // 로그인 하는 경우, 다이얼로그창에서, 확인을 누를 경우
                 String inputEmail = emailField.getText();
                 String inputPassword = passField.getText();
+                // 입력창에 입력했던 이메일과 패스워드를 가져와서, 메모리상에 있는 members 맵에서
+                // 비교하기. 먼저 이메일 찾고있다면, 패스워드와 비교해서 로그인 처리하기.
                 if (members.containsKey(inputEmail)) {
-                    _3_MemberBase member = members.get(inputEmail);
+                    // 맵 안에 있는 회원들 중, 로그인하려는 멤버의 객체를 이메일로 가져오기.
+                    // 키:이메일, 값:회원정보가 들어있는 객체
+                    MemberBase member = members.get(inputEmail);
                     if (member.getPassword().equals(inputPassword)) {
+                        // 해당 이메일에 패스워드도 일치하면, 로그인 성공
+                        // 로그인한 유저 정보의 객체를 loggedInMember에 할당하기.
                         loggedInMember = member;
+                        // 성공 메세지
                         printLog(">>>로그인 성공!! " + member.getName() + "님 환영합니다.");
+                        // 미구현, 버튼의 로그인, 로그아웃 라벨을 변경하는 메서드
                         updateButtonState();
+
                     } else {
                         JOptionPane.showMessageDialog
-                        (this, "패스워드가 틀렸습니다.");
+                                (this, "패스워드가 틀렸습니다.");
                     }
                 } else {
                     JOptionPane.showMessageDialog
-                    (this, "존재하지않는 이메일입니다..");
+                            (this, "존재하지않는 이메일입니다..");
                 }
             }
         }
     }
 
-    // 4. 회원정보수정 기능
         private void handleEdit() {
-            if (loggedInMember == null) { JOptionPane.showMessageDialog
-                    (this, "로그인 후 이용해주세요.");
+            // 로그인 체크 후 로그인시에만 수정 가능
+            if (loggedInMember == null) {
+                JOptionPane.showMessageDialog(this, "로그인 후 이용해주세요.");
                 return; // 수정 기능 나가기 (메서드 빠져나감)
             }
+
             // 화면 선택 다이얼로그
             String[] options = {"비밀번호", "이름", "나이"};
             int choice = JOptionPane.showOptionDialog(
@@ -320,6 +330,7 @@ public class _3_MainClass2 extends JFrame {
             if (choice == -1) { // 닫기/취소
                 return;
             }
+
             String newValue = JOptionPane.showInputDialog
                     (this, "새로운 값을 입력하세요:");
             if (newValue == null) {
@@ -349,13 +360,14 @@ public class _3_MainClass2 extends JFrame {
                     }
                     break;
             }
+
             // 수정 완료했으면 파일에 저장하기.
             if(isUpdated) {
-                // 수정된 내용을 파일에 저장
                 saveMembers(members);
                 printLog(">>> 정보가 수정되었습니다.");
                 updateButtonState(); // 상단 패널의 업데이트
             }
+
         }
 
         // 로그인, 로그아웃 기능 동작시, 버튼 패널
@@ -380,8 +392,6 @@ public class _3_MainClass2 extends JFrame {
             }
         }
 
-
-    // 5. 회원 검색
     private void handleSearch() {
         // 검색 화면 타입 선택
         String[] options = {"이메일 검색", "이름으로 검색"};
@@ -421,14 +431,14 @@ public class _3_MainClass2 extends JFrame {
         if (choice == 0) { // 이메일 검색
             // 검색어를 받아서 이메일로 members 맵의 내용을 검색
             if (members.containsKey(keyword)) {
-                _3_MemberBase member = members.get(keyword);
+                MemberBase member = members.get(keyword);
                 printLog("검색결과 : " + member.getName() + ", 이메일 : " + member.getEmail());
                 isFound = true;
             }
 
         } else { // 이름 검색
             // 검색어를 받아서 이메일로 members 맵의 내용을 검색
-            for (_3_MemberBase member : members.values()) {
+            for (MemberBase member : members.values()) {
                 if (member.getName().contains(keyword)) {
                     printLog("검색결과 : " + member.getName() + ", 이메일 : " + member.getEmail());
                     isFound = true;
@@ -440,65 +450,15 @@ public class _3_MainClass2 extends JFrame {
         }
     }
 
-    // 6. 회원탈퇴
-    private void handleDelete() {
-        // 1. 로그인 체크
-        if (loggedInMember == null) { // 로그인이 안된 경우,
-            // 알림창 띄우고
-            JOptionPane.showMessageDialog
-                    (this, "로그인 후 본인 탈퇴 가능합니다.");
-            // 해당 기능 종료
-            return;
-        }
-
-        // 2. 삭제 재확인 다이얼로그창, 화면 구현
-        int response = JOptionPane.showConfirmDialog
-                (this,
-                        "정말로 회원 탈퇴를 하시겠습니까? \n 모든 정보가 삭제됩니다.",
-                        "회원 탈퇴 확인",
-                        JOptionPane.YES_NO_OPTION,
-                        JOptionPane.WARNING_MESSAGE
-                );
-
-        if (response == JOptionPane.YES_OPTION) {
-            // 3. 비밀번호 재확인 후 진행하기
-            String inputPassword = JOptionPane.showInputDialog
-                    (this, "비밀번호를 입력하세요: ");
-
-            // 입력 비밀번호, 멤버 비밀번호가 일치한다면
-            if (inputPassword != null && inputPassword.equals(loggedInMember.getPassword())) {
-                // 4. 삭제 로직 진행
-                String targetEmail = loggedInMember.getEmail();
-                members.remove(targetEmail); // 맵에서 삭제 처리
-
-                // 5. 파일 업데이트 , 메모리상에서 변경된 내용 -> 파일에 업데이트
-                saveMembers(members);
-
-                // 6. 상태 초기화 (로그아웃처리)
-                printLog(">>> 회원탈퇴완료: " + targetEmail); // 회원탈퇴완료 알림메세지, 탈퇴한 메일도 띄워줌.
-                loggedInMember = null; // 탈퇴되었으니 로그인 초기화한다. = 로그아웃 처리한다.
-                updateButtonState();
-
-                // 7. 알림창 띄우기
-                JOptionPane.showMessageDialog
-                        (this, "탈퇴 처리가 완료되었습니다. 이용해주셔서 감사합니다.");
-            } else if (inputPassword != null) {
-                JOptionPane.showMessageDialog
-                        (this, "비밀번호가 일치하지 않습니다.");
-            }
-        }
-    }
-
-
 
 
     // 260123_화면_스윙_변경__순서10, 수정 필요함.
     // static -> 인스턴스 메서드로 변경합니다. : static 제거
-    public void saveMembers(Map<String, _3_MemberBase> members){
+    public void saveMembers(Map<String, MemberBase> members){
         BufferedWriter bw = null;
         try {
             bw = new BufferedWriter(new FileWriter(FILE_NAME));
-            for(_3_MemberBase m: members.values()) {
+            for(MemberBase m: members.values()) {
                 String line = m.getName()+","+m.getEmail()+","+m.getPassword()+","+m.getAge();
                 bw.write(line);
                 bw.newLine(); // 줄바꿈 함.
@@ -519,7 +479,7 @@ public class _3_MainClass2 extends JFrame {
     }
 
     // static -> 인스턴스 메서드로 변경합니다. : static 제거
-    public int loadMembers(Map<String, _3_MemberBase> members) {
+    public int loadMembers(Map<String, MemberBase> members) {
         File file = new File(FILE_NAME);
         if(!file.exists()) { // 해당 파일이 존재 안하니? true(파일없다)
             return 0;
@@ -536,7 +496,7 @@ public class _3_MainClass2 extends JFrame {
                     String email = data[1];
                     String password = data[2];
                     int age = Integer.parseInt(data[3]);
-                    members.put(email,new _3_NormalMember(name,email,password,age));
+                    members.put(email,new NormalMember(name,email,password,age));
                     loadCount++;
                 }
             }

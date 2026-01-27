@@ -1,4 +1,4 @@
-package _9_test_260123.memberProject;
+package single.memberProject;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,16 +10,13 @@ import java.util.Map;
 
 // 260123_화면_스윙_변경__순서1
 // 해당 클래스가, JFrame 관련 그리기 도구를 사용하기 위해서, 상속.
-public class _3_MainClass2 extends JFrame {
-
+public class MainClass2 extends JFrame {
     private static final String FILE_NAME = "members.txt";
-
     // 260123_화면_스윙_변경__순서2
     // 전역으로 사용할 멤버들 지정, 변수 지정.
-    private Map<String, _3_MemberBase> members = new HashMap<>();
+    private Map<String, MemberBase> members = new HashMap<>();
     //로그인한 멤버 상태
-    private _3_MemberBase loggedInMember = null;
-
+    private MemberBase loggedInMember = null;
     // 260123_화면_스윙_변경__순서2-2
     // GUI 화면 구성 요소, 전역,
     private JTextArea displayArea; // 결과 출력을 위한 텍스트 영역.
@@ -35,13 +32,13 @@ public class _3_MainClass2 extends JFrame {
         // 260123_화면_스윙_변경__순서3
         // [GUI 변경] 메인 스레드에서 GUI 실행,
         SwingUtilities.invokeLater(() -> {
-            new _3_MainClass2();
+            new MainClass2();
         });
     }
 
     // 260123_화면_스윙_변경__순서4
     // _3_MainClass 생성자 정의.
-    public _3_MainClass2() {
+    public MainClass2() {
 
         // 260123_화면_스윙_변경__순서4-2
         // 부모 클래스의 생성자가 호출 후, 자식 클래스의 생성자 호출.
@@ -227,7 +224,7 @@ public class _3_MainClass2 extends JFrame {
             try {
                 int age = Integer.parseInt(ageStr);
                 // 원래 기존 멤버에 객체 등록하면 됨
-                _3_NormalMember newMember = new _3_NormalMember(name, email, pass, age);
+                NormalMember newMember = new NormalMember(name, email, pass, age);
                 // 맵에 새 회원을 담는 과정
                 members.put(email, newMember);
                 // 기존의 파일에 쓰기 기능
@@ -250,7 +247,7 @@ public class _3_MainClass2 extends JFrame {
             printLog("가입된 회원이 없습니다.");
         } else {
             // 기존에 사용하던 Map 순회해서 출력
-            for (_3_MemberBase member : members.values()) {
+            for (MemberBase member : members.values()) {
                 String info = String.format("이름 : %s | 이메일 : %s | 나이 : %d",
                         member.getName(), member.getEmail(), member.getAge());
                 // 문자열 포맷팅
@@ -282,7 +279,7 @@ public class _3_MainClass2 extends JFrame {
                 String inputEmail = emailField.getText();
                 String inputPassword = passField.getText();
                 if (members.containsKey(inputEmail)) {
-                    _3_MemberBase member = members.get(inputEmail);
+                    MemberBase member = members.get(inputEmail);
                     if (member.getPassword().equals(inputPassword)) {
                         loggedInMember = member;
                         printLog(">>>로그인 성공!! " + member.getName() + "님 환영합니다.");
@@ -421,14 +418,14 @@ public class _3_MainClass2 extends JFrame {
         if (choice == 0) { // 이메일 검색
             // 검색어를 받아서 이메일로 members 맵의 내용을 검색
             if (members.containsKey(keyword)) {
-                _3_MemberBase member = members.get(keyword);
+                MemberBase member = members.get(keyword);
                 printLog("검색결과 : " + member.getName() + ", 이메일 : " + member.getEmail());
                 isFound = true;
             }
 
         } else { // 이름 검색
             // 검색어를 받아서 이메일로 members 맵의 내용을 검색
-            for (_3_MemberBase member : members.values()) {
+            for (MemberBase member : members.values()) {
                 if (member.getName().contains(keyword)) {
                     printLog("검색결과 : " + member.getName() + ", 이메일 : " + member.getEmail());
                     isFound = true;
@@ -494,11 +491,11 @@ public class _3_MainClass2 extends JFrame {
 
     // 260123_화면_스윙_변경__순서10, 수정 필요함.
     // static -> 인스턴스 메서드로 변경합니다. : static 제거
-    public void saveMembers(Map<String, _3_MemberBase> members){
+    public void saveMembers(Map<String, MemberBase> members){
         BufferedWriter bw = null;
         try {
             bw = new BufferedWriter(new FileWriter(FILE_NAME));
-            for(_3_MemberBase m: members.values()) {
+            for(MemberBase m: members.values()) {
                 String line = m.getName()+","+m.getEmail()+","+m.getPassword()+","+m.getAge();
                 bw.write(line);
                 bw.newLine(); // 줄바꿈 함.
@@ -519,7 +516,7 @@ public class _3_MainClass2 extends JFrame {
     }
 
     // static -> 인스턴스 메서드로 변경합니다. : static 제거
-    public int loadMembers(Map<String, _3_MemberBase> members) {
+    public int loadMembers(Map<String, MemberBase> members) {
         File file = new File(FILE_NAME);
         if(!file.exists()) { // 해당 파일이 존재 안하니? true(파일없다)
             return 0;
@@ -536,7 +533,7 @@ public class _3_MainClass2 extends JFrame {
                     String email = data[1];
                     String password = data[2];
                     int age = Integer.parseInt(data[3]);
-                    members.put(email,new _3_NormalMember(name,email,password,age));
+                    members.put(email,new NormalMember(name,email,password,age));
                     loadCount++;
                 }
             }
